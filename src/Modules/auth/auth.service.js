@@ -28,11 +28,11 @@ export const signup = async(req, res, next)=>{
     type:"confirmEmail",
     expiresAt: new Date(Date.now() + 10 * 60 * 1000),
   });
-  await sendOtpEmail({
-    to: user.email,
-    otp: otpCode,
-    type: "confirmEmail",
-  });
+  // await sendOtpEmail({
+  //   to: user.email,
+  //   otp: otpCode,
+  //   type: "confirmEmail",
+  // });
 
   return res.status(201).json({
     success: true,
