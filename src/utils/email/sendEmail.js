@@ -13,24 +13,51 @@
 //   }
 //   return true;
 // };
+// import { transporter } from "./transporter.js";
+
+// export const sendEmail = async ({ to, subject, html }) => {
+//   try {
+//     const info = await transporter.sendMail({
+//       from: `"Healthy App" <${process.env.EMAIL}>`,
+//       to,
+//       subject,
+//       html,
+//     });
+
+//     if (info.rejected.length) {
+//       throw new Error("Email rejected");
+//     }
+
+//     return true;
+//   } catch (err) {
+//     console.log("SMTP Error:", err.message);
+//     return false;
+//   }
+// };
+
 import { transporter } from "./transporter.js";
 
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
 export const sendEmail = async ({ to, subject, html }) => {
-  try {
-    const info = await transporter.sendMail({
-      from: `"Healthy App" <${process.env.EMAIL}>`,
-      to,
-      subject,
-      html,
-    });
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const info = await transporter.sendMail({
+        from: `"Healthy App" <${process.env.EMAIL}>`,
+        to,
+        subject,
+        html,
+      });
 
-    if (info.rejected.length) {
-      throw new Error("Email rejected");
+      if (info.rejected?.length) {
+        throw new Error("Email rejected");
+      }
+
+      return true;
+    } catch (err) {
+      console.log(`SMTP attempt ${attempt} failed:`, err.message);
+      if (attempt === 2) return false;
+      await sleep(1500);
     }
-
-    return true;
-  } catch (err) {
-    console.log("SMTP Error:", err.message);
-    return false;
   }
 };
