@@ -13,43 +13,61 @@ const connectDB = async()=>{
   console.log("DB connected");
 };
 // upload image helper
+// const uploadImage = async (imageName) => {
+//   const imagePath = path.join(__dirname, "images", imageName);
+//   const {secure_url, public_id} = await cloudinary.uploader.upload(
+//     imagePath,
+//     {folder: "healthy-app/recipes"}
+//   );
+//   return {secure_url, public_id};
+// };
 const uploadImage = async (imageName) => {
-  const imagePath = path.join(__dirname, "images", imageName);
-  const {secure_url, public_id} = await cloudinary.uploader.upload(
-    imagePath,
-    {folder: "healthy-app/recipes"}
-  );
-  return {secure_url, public_id};
+  try {
+    const imagePath = path.join(__dirname, "images", imageName);
+
+    const { secure_url, public_id } =
+      await cloudinary.uploader.upload(imagePath, {
+        folder: "healthy-app/recipes",
+      });
+
+    return { secure_url, public_id };
+  } catch (err) {
+    console.log("Image upload failed:", imageName, err.message);
+    return {
+      secure_url: "https://dummy.com/image.jpg",
+      public_id: "dummy_id",
+    };
+  }
 };
 const seedRecipes = async() =>{
   try{
   await connectDB();
   await Recipe.deleteMany();
 
-//   const images = {
-//   salmon: await uploadImage("salmon.jpg"),
-//   quinoa: await uploadImage("quinoa.jpg"),
-//   grilledChicken: await uploadImage("grill-chicken.jpg"),
-//   chickenRice: await uploadImage("chicken-rice.jpg"),
-//   oatmeal: await uploadImage("oatmeal.jpg"),
-//   eggsToast: await uploadImage("eggs-toast.jpg"),
-//   yogurtBerry: await uploadImage("yogurt-berry.jpg"),
-//   beefStirFry: await uploadImage("beef-stir-fry.jpg"),
-//   tunaPasta: await uploadImage("tuna-pasta.jpg"),
-//   turkeyMeatballs: await uploadImage("turkey-meatballs.jpg"),
-//   shrimpRice: await uploadImage("shrimp-rice.jpg"),
-//   salmonSweetPotato: await uploadImage("salmon-sweet-potato.jpg"),
-//   yogurtSnack: await uploadImage("yogurt-snack.jpg"),
-//   applePB: await uploadImage("apple-pb.jpg"),
-//   proteinShake: await uploadImage("protein-shake.jpg"),
-// };
+  const images = {
+  salmon: await uploadImage("salmon.jpg"),
+  quinoa: await uploadImage("quinoa.jpg"),
+  grilledChicken: await uploadImage("grill-chicken.jpg"),
+  chickenRice: await uploadImage("chicken-rice.jpg"),
+  oatmeal: await uploadImage("oatmeal.jpg"),
+  eggsToast: await uploadImage("eggs-toast.jpg"),
+  yogurtBerry: await uploadImage("yogurt-berry.jpg"),
+  beefStirFry: await uploadImage("beef-stir-fry.jpg"),
+  tunaPasta: await uploadImage("tuna-pasta.jpg"),
+  turkeyMeatballs: await uploadImage("turkey-meatballs.jpg"),
+  shrimpRice: await uploadImage("shrimp-rice.jpg"),
+  salmonSweetPotato: await uploadImage("salmon-sweet-potato.jpg"),
+  yogurtSnack: await uploadImage("yogurt-snack.jpg"),
+  applePB: await uploadImage("apple-pb.jpg"),
+  proteinShake: await uploadImage("protein-shake.jpg"),
+};
 
   const recipes =[
 
 {
   name: "Zesty Lemon Salmon",
   description: "A refreshing, protein-rich salmon dish packed with omega-3 fatty acids, perfect for a balanced lunch.",
-  // image: images.salmon,
+  image: images.salmon,
   mealType: "lunch",
   calories: 450,
   cookingTime: 20,
@@ -73,7 +91,7 @@ const seedRecipes = async() =>{
 {
   name: "Grilled Chicken Rice Bowl",
   description: "A balanced lunch bowl rich in lean protein and complex carbohydrates.",
-  // image: images.chickenRice,
+  image: images.chickenRice,
   mealType: "lunch",
   calories: 560,
   cookingTime: 25,
@@ -97,7 +115,7 @@ const seedRecipes = async() =>{
 {
   name: "Protein Oatmeal with Peanut Butter",
   description: "A hearty breakfast combining complex carbs and healthy fats.",
-  // image: images.oatmeal,
+  image: images.oatmeal,
   mealType: "breakfast",
   calories: 420,
   cookingTime: 10,
@@ -120,7 +138,7 @@ const seedRecipes = async() =>{
 {
   name: "Scrambled Eggs with Whole Wheat Toast",
   description: "A classic high-protein breakfast.",
-  // image: images.eggsToast,
+  image: images.eggsToast,
   mealType: "breakfast",
   calories: 390,
   cookingTime: 10,
@@ -143,7 +161,7 @@ const seedRecipes = async() =>{
 {
   name: "Greek Yogurt Berry Bowl",
   description: "Protein-rich breakfast with antioxidants.",
-  // image: images.yogurtBerry,
+  image: images.yogurtBerry,
   mealType: "breakfast",
   calories: 340,
   cookingTime: 5,
@@ -165,7 +183,7 @@ const seedRecipes = async() =>{
 {
   name: "Quinoa Power Bowl",
   description: "Fiber-rich quinoa bowl with plant protein.",
-  // image: images.quinoa,
+  image: images.quinoa,
   mealType: "lunch",
   calories: 510,
   cookingTime: 20,
@@ -188,7 +206,7 @@ const seedRecipes = async() =>{
 {
   name: "Beef Stir Fry with Vegetables",
   description: "Protein-dense lean beef meal.",
-  // image: images.beefStirFry,
+  image: images.beefStirFry,
   mealType: "lunch",
   calories: 620,
   cookingTime: 25,
@@ -213,7 +231,7 @@ const seedRecipes = async() =>{
 {
   name: "Tuna Pasta Salad",
   description: "Balanced pasta dish rich in protein.",
-  // image: images.tunaPasta,
+  image: images.tunaPasta,
   mealType: "lunch",
   calories: 580,
   cookingTime: 15,
@@ -237,7 +255,7 @@ const seedRecipes = async() =>{
 {
   name: "Grilled Chicken Salad",
   description: "High-protein light dinner.",
-  // image: images.grilledChicken,
+  image: images.grilledChicken,
   mealType: "dinner",
   calories: 380,
   cookingTime: 20,
@@ -260,7 +278,7 @@ const seedRecipes = async() =>{
 {
   name: "Turkey Meatballs with Mashed Potatoes",
   description: "Comforting high-protein dinner.",
-  // image: images.turkeyMeatballs,
+  image: images.turkeyMeatballs,
   mealType: "dinner",
   calories: 520,
   cookingTime: 30,
@@ -283,7 +301,7 @@ const seedRecipes = async() =>{
 {
   name: "Grilled Shrimp with Rice",
   description: "Light protein-rich dinner.",
-  // image: images.shrimpRice,
+  image: images.shrimpRice,
   mealType: "dinner",
   calories: 470,
   cookingTime: 20,
@@ -305,7 +323,7 @@ const seedRecipes = async() =>{
 {
   name: "Baked Salmon with Sweet Potato",
   description: "Nutrient-dense dinner.",
-  // image: images.salmonSweetPotato,
+  image: images.salmonSweetPotato,
   mealType: "dinner",
   calories: 480,
   cookingTime: 25,
@@ -326,7 +344,7 @@ const seedRecipes = async() =>{
 {
   name: "Greek Yogurt with Honey & Almonds",
   description: "High-protein snack.",
-  // image: images.yogurtSnack,
+  image: images.yogurtSnack,
   mealType: "snack",
   calories: 220,
   cookingTime: 5,
@@ -347,7 +365,7 @@ const seedRecipes = async() =>{
 {
   name: "Apple with Peanut Butter",
   description: "Simple snack.",
-  // image: images.applePB,
+  image: images.applePB,
   mealType: "snack",
   calories: 210,
   cookingTime: 3,
@@ -367,7 +385,7 @@ const seedRecipes = async() =>{
 {
   name: "Protein Shake with Milk",
   description: "Post-workout snack.",
-  // image: images.proteinShake,
+  image: images.proteinShake,
   mealType: "snack",
   calories: 260,
   cookingTime: 2,
