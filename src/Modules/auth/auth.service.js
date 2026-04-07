@@ -29,7 +29,7 @@ export const signup = async(req, res, next)=>{
     expiresAt: new Date(Date.now() + 10 * 60 * 1000),
   });
   await sendOtpEmail({
-  to: user.email,
+  to: "maramshalaby88@gmail.com",
   otp: otpCode,
   type: "confirmEmail",
 }).catch((err) => {
