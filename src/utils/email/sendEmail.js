@@ -17,27 +17,25 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
-import { transporter } from "./transporter.js";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async ({ to, subject, html }) => {
   try {
-    console.log(" Sending email to:", to);
+    console.log("Sending email to:", to);
 
-    await transporter.verify();
-    console.log("SMTP connected");
-
-    const info = await transporter.sendMail({
-      from: `"Healthy App" <maramshalaby88@gmail.com>`,
-      to,
+    const data = await resend.emails.send({
+      from: "onboarding@resend.dev", 
+      to,                            
       subject,
       html,
     });
 
-    console.log("Email sent:", info.messageId);
-
+    console.log("Email sent:", data?.id);
     return true;
   } catch (err) {
-    console.log("Email Error FULL:", err);
+    console.log(" Email Error FULL:", err);
     return false;
   }
 };
