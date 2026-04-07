@@ -28,13 +28,16 @@ export const signup = async(req, res, next)=>{
     type:"confirmEmail",
     expiresAt: new Date(Date.now() + 10 * 60 * 1000),
   });
+  try {
   await sendOtpEmail({
-  to: "maramshalaby88@gmail.com",
-  otp: otpCode,
-  type: "confirmEmail",
-}).catch((err) => {
-  console.log("Email failed:", err.message);
-});
+    to: user.email,
+    otp: otpCode,
+    type: "confirmEmail",
+  });
+  console.log("OTP email sent");
+} catch (err) {
+  console.log("Email failed FULL:", err);
+}
 console.log("OTP:", otpCode);
 
   return res.status(201).json({

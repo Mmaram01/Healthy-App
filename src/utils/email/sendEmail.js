@@ -21,7 +21,7 @@ export const sendEmail = async ({ to, subject, html }) => {
   try {
     console.log("Sending email to:", to);
     await transporter.sendMail({
-      from: `"Healthy App" <${process.env.EMAIL}>`,
+      from: `"Healthy App" <maramshalaby88@gmail.com>`,
       to,
       subject,
       html,
