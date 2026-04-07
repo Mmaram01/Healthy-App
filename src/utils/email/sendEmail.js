@@ -1,4 +1,4 @@
-import { transporter } from "./transporter.js";
+// import { transporter } from "./transporter.js";
 // import { Resend } from "resend";
 // export const sendEmail = async ({to, subject, html}) =>{
 //   const info = await transporter.sendMail({
@@ -17,9 +17,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 
+import { transporter } from "./transporter.js";
+
 export const sendEmail = async ({ to, subject, html }) => {
   try {
-    console.log("Sending email to:", to);
+    console.log(" Sending email to:", to);
 
     await transporter.verify();
     console.log("SMTP connected");
