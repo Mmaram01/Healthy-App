@@ -20,16 +20,22 @@ dotenv.config();
 export const sendEmail = async ({ to, subject, html }) => {
   try {
     console.log("Sending email to:", to);
-    await transporter.sendMail({
+
+    await transporter.verify();
+    console.log("SMTP connected");
+
+    const info = await transporter.sendMail({
       from: `"Healthy App" <maramshalaby88@gmail.com>`,
       to,
       subject,
       html,
     });
 
+    console.log("Email sent:", info.messageId);
+
     return true;
   } catch (err) {
-    console.log("Email Error:", err.message);
+    console.log("Email Error FULL:", err);
     return false;
   }
 };
