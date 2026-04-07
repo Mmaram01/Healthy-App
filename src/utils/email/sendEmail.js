@@ -1,4 +1,4 @@
-// import { transporter } from "./transporter.js";
+import { transporter } from "./transporter.js";
 // import { Resend } from "resend";
 // export const sendEmail = async ({to, subject, html}) =>{
 //   const info = await transporter.sendMail({
