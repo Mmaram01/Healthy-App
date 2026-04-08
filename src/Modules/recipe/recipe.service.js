@@ -102,14 +102,14 @@ if (req.authUser){
 });
 };
 
-export const rateRecipe = async (req, res, next) => {
+export const rateRecipe = async (req, res, next)=>{
 
   const userId = req.authUser._id;
   const{id} = req.params;
   const{rating} = req.body;
 
   const recipe = await Recipe.findById(id);
-  if (!recipe || !recipe.isActive){
+  if(!recipe || !recipe.isActive){
     return next(new Error("Recipe not found",{cause: 404}));
 }
 

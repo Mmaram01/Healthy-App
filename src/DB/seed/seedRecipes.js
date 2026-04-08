@@ -42,10 +42,8 @@ const uploadImage = async (imageName) => {
 const seedRecipes = async() =>{
   try{
   await connectDB();
-   console.log("1- DB connected");
+   console.log(" DB connected");
   await Recipe.deleteMany();
-  console.log("2- Old recipes deleted");
-  console.log("3- Start uploading images...");
   const images = {
   salmon: await uploadImage("salmon.jpg"),
   quinoa: await uploadImage("quinoa.jpg"),
@@ -63,7 +61,6 @@ const seedRecipes = async() =>{
   applePB: await uploadImage("apple-pb.jpg"),
   proteinShake: await uploadImage("protein-shake.jpg"),
 };
-   console.log("4- Images uploaded");
   const recipes =[
 
 {
@@ -405,9 +402,7 @@ const seedRecipes = async() =>{
 }
 
 ];
-  console.log("5- Start inserting recipes...");
   await Recipe.insertMany(recipes);
-  console.log("6- Recipes inserted successfully");
 console.log("Recipes seeded successfully");
 process.exit();
 

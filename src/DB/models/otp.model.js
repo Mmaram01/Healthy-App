@@ -4,21 +4,21 @@ const otpSchema = new Schema(
     userId:{
       type:Schema.Types.ObjectId,
       ref: "User",
-      required:true,
+      required:true
     },
     code:{
       type:String,
-      required:true,
+      required:true
     },
     type:{
       type:String,
       enum:["confirmEmail","resetPassword"],
-      required:true,
+      required:true
     },
 
     expiresAt:{
       type:Date,
-      required:true,
+      required:true
     },
   },
 {timestamps: true}

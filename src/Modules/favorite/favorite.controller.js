@@ -14,8 +14,7 @@ router.post(
   asyncHandler(favoriteService.toggleFavorite)
 );
 
-router.get(
-  "/",
+router.get("/",
   isAuthenticate,
   asyncHandler(favoriteService.getFavorites)
 );

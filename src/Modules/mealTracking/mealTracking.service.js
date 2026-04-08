@@ -12,14 +12,14 @@ export const addMeal =async(req, res, next)=>{
   }
   const meal = await MealTracking.create({
     userId,
-    recipeId: recipe._id,
-    mealType: recipe.mealType,
-    date: new Date(date),
+    recipeId:recipe._id,
+    mealType:recipe.mealType,
+    date:new Date(date),
     calories: recipe.calories,
-    macros: {
+    macros:{
       protein: recipe.macros.protein,
-      carbohydrates: recipe.macros.carbohydrates,
-      fats: recipe.macros.fats,
+      carbohydrates:recipe.macros.carbohydrates,
+      fats:recipe.macros.fats,
     },
   });
 
@@ -71,7 +71,7 @@ export const getDailySummary =async(req, res, next)=>{
     fats:0,
     mealsCount: meals.length,
   };
-  for (const meal of meals) {
+  for(const meal of meals) {
     summary.calories += meal.calories;
     summary.protein += meal.macros.protein;
     summary.carbohydrates += meal.macros.carbohydrates;

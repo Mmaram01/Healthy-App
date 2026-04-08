@@ -6,21 +6,18 @@ import * as profileService from "./profile.service.js";
 import { asyncHandler } from "../../utils/index.js";
 
 const router = Router();
-router.post(
-  "/upsert",
+router.post("/upsert",
   isAuthenticate,
   isValid(profileValidation.upsertProfile),
   asyncHandler(profileService.upsertProfile)
 );
 
-router.get(
-  "/me",
+router.get("/me",
   isAuthenticate,
   asyncHandler(profileService.getMyProfile)
 );
 
-router.delete(
-  "/delete",
+router.delete("/delete",
   isAuthenticate,
   asyncHandler(profileService.deleteAccount)
 );

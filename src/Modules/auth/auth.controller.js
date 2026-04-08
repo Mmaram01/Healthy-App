@@ -4,8 +4,7 @@ import * as authValidation from "./auth.validation.js"
 import { asyncHandler } from "../../utils/error/async-handler.js";
 import { isValid } from "../../Middlewares/validation.middleware.js";
 const router = Router();
-router.post(
-    "/signup", 
+router.post("/signup", 
     isValid(authValidation.signup), 
     asyncHandler(authService.signup));
 router.post(

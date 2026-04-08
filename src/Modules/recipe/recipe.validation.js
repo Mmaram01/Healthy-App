@@ -38,7 +38,7 @@ export const getRecipes = joi
   export const rateRecipe = joi
   .object({
     id: generalField.id.required(),
-    rating: joi.number().min(1).max(5).required(), // body
+    rating: joi.number().min(1).max(5).required(),
   })
   .required();
 

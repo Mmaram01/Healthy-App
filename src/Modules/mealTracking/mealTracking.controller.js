@@ -6,43 +6,37 @@ import { isValid } from "../../Middlewares/validation.middleware.js";
 import { asyncHandler } from "../../utils/index.js";
 
 const router = Router();
-router.post(
-  "/add",
+router.post("/add",
   isAuthenticate,
   isValid(trackingValidation.addMeal),
   asyncHandler(trackingService.addMeal)
 );
 
 //get meals for specific date
-router.get(
-  "/",
+router.get("/",
   isAuthenticate,
   isValid(trackingValidation.getMealsByDate),
   asyncHandler(trackingService.getMealsByDate)
 );
 
-router.get(
-  "/summary",
+router.get("/summary",
   isAuthenticate,
   isValid(trackingValidation.getDailySummary),
   asyncHandler(trackingService.getDailySummary)
 );
-router.patch(
-  "/:id",
+router.patch("/:id",
   isAuthenticate,
   isValid(trackingValidation.updateMeal),
   asyncHandler(trackingService.updateMeal)
 );
 
-router.delete(
-  "/:id",
+router.delete("/:id",
   isAuthenticate,
   isValid(trackingValidation.deleteMeal),
   asyncHandler(trackingService.deleteMeal)
 );
 
-router.get(
-  "/status",
+router.get("/status",
   isAuthenticate,
   isValid(trackingValidation.getDailyStatus),
   asyncHandler(trackingService.getDailyStatus)

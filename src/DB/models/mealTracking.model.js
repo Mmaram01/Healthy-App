@@ -5,42 +5,42 @@ const mealTrackingSchema = new Schema(
     userId:{
       type:Types.ObjectId,
       ref: "User",
-      required:true,
+      required:true
     },
     recipeId:{
       type:Types.ObjectId,
       ref:"Recipe",
-      required:true,
+      required:true
     },
     mealType:{
       type:String,
       enum: ["breakfast","lunch", "dinner","snack"],
-      required:true,
+      required:true
     },
     date:{
       type:Date,
-      required:true,
+      required:true
     },
     calories:{
       type:Number,
-      required:true,
+      required:true
     },
     macros:{
       protein:{
         type:Number,
-        required:true,
+        required:true
       },
       carbohydrates:{
         type:Number,
-        required:true,
+        required:true
       },
       fats:{
         type:Number,
-        required:true,
+        required:true
       },
     },
   },
-  {timestamps:true,}
+  {timestamps:true}
 );
 
 export const MealTracking = model("MealTracking",mealTrackingSchema);

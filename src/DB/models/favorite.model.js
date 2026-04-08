@@ -10,13 +10,13 @@ const favoriteSchema = new Schema(
     recipeId:{
       type:Types.ObjectId,
       ref:"Recipe",
-      index: true,
-      required: true,
+      index:true,
+      required:true
     },
   },
   {timestamps: true}
 );
 //prevent rec
-favoriteSchema.index({userId: 1,recipeId: 1},
+favoriteSchema.index({userId:1,recipeId: 1},
   {unique:true});
 export const Favorite = model("Favorite", favoriteSchema);

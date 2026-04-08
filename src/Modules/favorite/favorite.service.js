@@ -7,16 +7,16 @@ export const toggleFavorite =async(req, res, next)=>{
 
   const recipe = await Recipe.findOne({
     _id: recipeId,
-    isActive: true,
+    isActive: true
   });
   if(!recipe || !recipe.isActive){
     return next(new Error("Recipe not found",{cause: 404}));
   }
-  const deleted = await Favorite.deleteOne({ userId, recipeId });
-  if (deleted.deletedCount > 0) {
+  const deleted = await Favorite.deleteOne({userId, recipeId});
+  if(deleted.deletedCount > 0){
     return res.status(200).json({
       success: true,
-      message: "Recipe removed from favorites",
+      message:"Recipe removed from favorites",
       isFavorite: false,
     });
   }

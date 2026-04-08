@@ -44,7 +44,7 @@ console.log("OTP:", otpCode);
     success: true,
     message: "OTP SENT",
     userId: user._id,
-    otp: otpCode
+    email: user.email,
   });
 };
 

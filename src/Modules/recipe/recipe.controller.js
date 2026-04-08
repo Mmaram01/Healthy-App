@@ -6,20 +6,17 @@ import { isValid } from "../../Middlewares/validation.middleware.js";
 import { asyncHandler } from "../../utils/index.js";
 
 const router = Router();
-router.get(
-  "/",
+router.get("/",
   isValid(recipeValidation.getRecipes),
   asyncHandler(recipeService.getRecipes)
 );
 
-router.get(
-  "/:id",
+router.get("/:id",
   isValid(recipeValidation.getRecipeById),
   asyncHandler(recipeService.getRecipeById)
 );
 
-router.post(
-  "/:id/rate",
+router.post("/:id/rate",
   isAuthenticate,
   isValid(recipeValidation.rateRecipe),
   asyncHandler(recipeService.rateRecipe)

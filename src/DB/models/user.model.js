@@ -1,42 +1,42 @@
 import { model, Schema, mongoose } from "mongoose";
 import bcrypt from "bcrypt";
 const userSchema = new Schema(
-    {
-      userName:{
-        type: String,
+  {
+    userName:{
+      type: String,
+      required: true,
+      trim: true
+      },
+      email:{
+        type: String, 
         required: true,
-        trim: true,
+        unique: true, 
+        toLowerCase: true,
+        index: true
+      },
+      password:{type:String,
+      required: function(){
+        return this.provider =="system";
         },
-        email:{
-            type: String, 
-            required: true,
-            unique: true, 
-            toLowerCase: true,
-            index: true,
-        },
-        password:{type:String,
-            required: function(){
-                return this.provider =="system";
-            },
-            select:false,
+        select:false
         },
         phone:{type: String},
         isEmailConfirmed:{
-            type: Boolean,
-            default: false,
+          type: Boolean,
+          default: false
         },
         provider:{
       type: String,
       enum:["system", "google", "apple"],
-      default: "system",
+      default: "system"
     },
     isDeleted:{
-  type: Boolean,
-  default: false,
+    type: Boolean,
+     default: false,
     },
 deletedAt:{type: Date},      
   },
-    {timestamps: true}
+  {timestamps: true}
 );
 
 // hooks
